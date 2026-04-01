@@ -1,86 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WebAR Jelly Baby - Disney Style</title>
-    
-    <!-- A-Frame and MindAR Scripts -->
-    <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
-    <script src="https://unpkg.com/aframe-rounded-box-component@1.1.0/dist/aframe-rounded-box-component.min.js"></script>
-    
-    <link rel="stylesheet" href="style.css">
-    <script src="app.js" defer></script>
-</head>
+    <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>WebAR Jelly Baby - Disney Style</title>
+        
+        <!-- A-Frame and MindAR Scripts -->
+        <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
+        <script src="https://unpkg.com/aframe-rounded-box-component@1.1.0/dist/aframe-rounded-box-component.min.js"></script>
+        
+        <link rel="stylesheet" href="style.css">
+        <script src="app.js" defer></script>
+    </head>
 <body>
-    <!-- Scanning Overlay UI -->
-    <div id="scanning-overlay" class="hidden">
-        <div class="inner">
-            <div class="scanline"></div>
-            <h1>SCAN THE BOX</h1>
-            <p>Point your camera at the Jelly Box</p>
-        </div>
-    </div>
+        <!-- Scanning Overlay UI -->
+        <div id="scanning-overlay" class="hidden">
+                    <div class="inner">
+                                    <div class="scanline"></div>div>
+                                    <h1>SCAN THE BOX</h1>
+                                <p>Point your camera at the Jelly Box</p>
+                    </div>div>
+        </div>div>
 
     <!-- AR Scene -->
     <a-scene 
-        mindar-image="imageTargetSrc: https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.5/examples/image-tracking/assets/card-example/card.mind; autoStart: true; uiScanning: #scanning-overlay" 
-        color-space="sRGB" 
-        renderer="colorManagement: true, physicallyCorrectLights" 
-        vr-mode-ui="enabled: false" 
-        device-orientation-permission-ui="enabled: false">
-        
-        <a-assets>
-            <!-- In-line Assets for the "Voxel Disney" character -->
-            <!-- We build the Jelly Baby using primitives to ensure it's "Zero Cost" and instantly available -->
-        </a-assets>
+                mindar-image="imageTargetSrc: https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.5/examples/image-tracking/assets/card-example/card.mind; autoStart: true; uiScanning: #scanning-overlay" 
+                color-space="sRGB" 
+                renderer="colorManagement: true, physicallyCorrectLights" 
+                vr-mode-ui="enabled: false" 
+                device-orientation-permission-ui="enabled: false">
+            
+            <a-assets>
+                            <!-- In-line Assets for the "Voxel Disney" character -->
+            </a-assets>
 
-        <a-camera position="0 0 0" look-controls="enabled: false" cursor="fuse: false; rayOrigin: mouse;" raycaster="far: 10000; objects: .clickable"></a-camera>
+                <!-- Lighting for Physically Correct Mode -->
+                <a-entity light="type: ambient; color: #FFF; intensity: 0.8"></a-entity>a-entity>
+                <a-entity light="type: directional; color: #FFF; intensity: 1" position="-0.5 1 1"></a-entity>a-entity>
 
-        <!-- Image Target Entity -->
-        <a-entity mindar-image-target="targetIndex: 0">
-            <!-- The character "Jelly Baby" -->
-            <a-entity id="jelly-baby-container" position="0 0 0.1" scale="0.001 0.001 0.001">
-                
-                <!-- Squishy Body (Voxel Look) -->
-                <a-rounded-box 
-                    id="baby-body"
-                    width="0.8" height="1" depth="0.8" 
-                    radius="0.2" 
-                    color="#ff69b4" 
-                    material="roughness: 0.1; metalness: 0.1"
-                    animation__jump="property: position; from: 0 0 0; to: 0 0.5 0; dur: 500; dir: alternate; loop: 4; autoplay: false"
-                    animation__squish="property: scale; from: 1 1 1; to: 1.2 0.8 1.2; dur: 500; dir: alternate; loop: 4; autoplay: false">
-                    
-                    <!-- Big Disney Eyes -->
-                    <a-sphere position="-0.25 0.3 0.41" radius="0.15" color="white">
-                        <a-sphere position="0 0 0.1" radius="0.05" color="black"></a-sphere>
-                    </a-sphere>
-                    <a-sphere position="0.25 0.3 0.41" radius="0.15" color="white">
-                        <a-sphere position="0 0 0.1" radius="0.05" color="black"></a-sphere>
-                    </a-sphere>
+                <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>a-camera>
 
-                    <!-- Cute Smile -->
-                    <a-ring position="0 0.1 0.41" radius-inner="0.08" radius-outer="0.1" theta-start="180" theta-length="180" color="#8b0000"></a-ring>
-                </a-rounded-box>
+                <!-- Image Target Entity -->
+                <a-entity mindar-image-target="targetIndex: 0">
+                                <!-- The character "Jelly Baby" -->
+                                <!-- Initial scale 0.1 so it's "there" but small for debugging -->
+                                <a-entity id="jelly-baby-container" position="0 0 0.1" scale="0.1 0.1 0.1"
+                                                    animation="property: scale; to: 1 1 1; dur: 800; easing: easeOutElastic; startEvents: startJump">
 
-            </a-entity>
-        </a-entity>
-    </a-scene>
+                                                    <!-- Squishy Body (Voxel Look) -->
+                                                    <a-rounded-box 
+                                                                            id="baby-body"
+                                                                            width="0.8" height="1" depth="0.8" 
+                                                                            radius="0.2" 
+                                                                            color="#ff69b4" 
+                                                                            material="roughness: 0.1; metalness: 0.1"
+                                                                            animation__jump="property: position; from: 0 0 0; to: 0 0.5 0; dur: 500; dir: alternate; loop: 4; startEvents: startJump"
+                                                                            animation__squish="property: scale; from: 1 1 1; to: 1.2 0.8 1.2; dur: 500; dir: alternate; loop: 4; startEvents: startJump">
 
-    <!-- Success Message (Visible after animation ends) -->
-    <div id="success-ui" class="hidden">
-        <div class="card">
-            <h2>JELLY BABY FOUND!</h2>
-            <button id="restart-btn">Try Again</button>
-        </div>
-    </div>
+                                                                            <!-- Big Disney Eyes -->
+                                                                            <a-sphere position="-0.25 0.3 0.41" radius="0.15" color="white">
+                                                                                                        <a-sphere position="0 0 0.1" radius="0.05" color="black"></a-sphere>a-sphere>
+                                                                                                    </a-sphere>a-sphere>
+                                                                            <a-sphere position="0.25 0.3 0.41" radius="0.15" color="white">
+                                                                                                        <a-sphere position="0 0 0.1" radius="0.05" color="black"></a-sphere>a-sphere>
+                                                                                                    </a-sphere>a-sphere>
 
-    <!-- Instructions for the user -->
-    <div id="instructions">
-        <p><strong>Note:</strong> Currently using MindAR's sample target for testing.</p>
-        <p>Target Image Download: <a href="https://raw.githubusercontent.com/hiukim/mind-ar-js-doc/master/static/assets/card-example/card.png" target="_blank">Card.png</a></p>
-    </div>
+                                                                            <!-- Cute Smile -->
+                                                                            <a-ring position="0 0.1 0.41" radius-inner="0.08" radius-outer="0.1" theta-start="180" theta-length="180" color="#8b0000"></a-ring>a-ring>
+                                                                        </a-rounded-box>a-rounded-box>
+
+                                                </a-entity>a-entity>
+                            </a-entity>a-entity>
+            </a-scene>a-scene>
+
+        <!-- Success Message (Visible after animation ends) -->
+        <div id="success-ui" class="hidden">
+                    <div class="card">
+                                    <h2>JELLY BABY FOUND!</h2>
+                                    <button id="restart-btn">Try Again</button>button>
+                    </div>div>
+        </div>div>
+
+        <!-- Instructions for the user -->
+        <div id="instructions">
+                    <p><strong>Note:</strong> Currently using MindAR's sample target for testing.</p>
+                <p>Target Image Download: <a href="https://raw.githubusercontent.com/hiukim/mind-ar-js-doc/master/static/assets/card-example/card.png" target="_blank">Card.png</a>a></p>
+        </div>div>
 </body>
-</html>
+</html>html>
+</p></strong>
+            </a-assets></p></h1>
+</body></title>
+    </head>
