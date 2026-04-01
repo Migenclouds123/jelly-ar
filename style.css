@@ -1,0 +1,119 @@
+:root {
+    --jelly-pink: #ff69b4;
+    --jelly-dark: #8b0000;
+    --jelly-bg: #fff0f5;
+    --ui-border: #4a4a4a;
+    --ui-bright: #adff2f;
+}
+
+body {
+    margin: 0;
+    overflow: hidden;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: var(--ui-border);
+}
+
+/* Scanning Overlay Design (Disneyish Retro) */
+#scanning-overlay {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 100;
+    text-align: center;
+    border: 4px solid var(--ui-border);
+    background: rgba(255, 255, 255, 0.8);
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 10px 10px 0px var(--ui-border);
+    width: 80%;
+    max-width: 400px;
+}
+
+#scanning-overlay h1 {
+    margin: 0;
+    font-size: 2.5rem;
+    letter-spacing: 2px;
+    -webkit-text-stroke: 1px var(--ui-border);
+    color: var(--jelly-pink);
+}
+
+.scanline {
+    width: 80%;
+    height: 4px;
+    background: var(--ui-bright);
+    margin: 15px auto;
+    box-shadow: 0 0 10px var(--ui-bright);
+    animation: pulse 1.5s infinite ease-in-out;
+}
+
+@keyframes pulse {
+    0% { transform: scaleX(0.8); opacity: 0.5; }
+    50% { transform: scaleX(1.1); opacity: 1; }
+    100% { transform: scaleX(0.8); opacity: 0.5; }
+}
+
+/* Instructions HUD */
+#instructions {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    right: 20px;
+    background: white;
+    padding: 15px;
+    border: 2px solid var(--ui-border);
+    border-radius: 10px;
+    font-size: 0.9rem;
+    z-index: 50;
+    box-shadow: 5px 5px 0px var(--ui-border);
+}
+
+#instructions a {
+    color: var(--jelly-pink);
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+/* Success Card */
+#success-ui {
+    position: fixed;
+    bottom: 40%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--ui-bright);
+    padding: 20px;
+    border: 4px solid var(--ui-border);
+    border-radius: 20px;
+    box-shadow: 0px 10px 0px var(--ui-border);
+    text-align: center;
+    z-index: 200;
+    transition: all 0.5s ease;
+}
+
+#success-ui h2 {
+    margin-top: 0;
+    color: white;
+    -webkit-text-stroke: 2px var(--ui-border);
+    font-size: 2rem;
+}
+
+#restart-btn {
+    background: var(--jelly-pink);
+    color: white;
+    border: 2px solid var(--ui-border);
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 4px 4px 0px var(--ui-border);
+    transition: active 0.1s;
+}
+
+#restart-btn:active {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0px var(--ui-border);
+}
+
+.hidden {
+    display: none !important;
+}
